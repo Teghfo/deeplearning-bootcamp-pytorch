@@ -45,6 +45,10 @@ MANIFEST
 *.manifest
 *.spec
 
+notebooks/data/*
+notebooks/runs/*
+notebooks/saved_models/
+
 # Installer logs
 pip-log.txt
 pip-delete-this-directory.txt
