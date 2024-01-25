@@ -26,17 +26,23 @@ class NN(nn.Module):
         self.bn1 = nn.BatchNorm1d(300)
         self.fc2 = nn.Linear(300, 100)
 
-    def forward(self, x):
+    def forwad_once(self, x):
         x = self.flatten(x)
         output = self.bn1(self.fc1(x))
         output = F.relu()(output)
         output = self.fc2(output)
         return output
 
+    def forward(self, x1, x2):
+        out1 = self.forwad_once(x1)
+        out2 = self.forwad_once(x2)
+        return out1, out2
 
-model1 = NN(28 * 28)
-model2 = NN(28 * 28)
 
+model = NN(28 * 28)
+
+
+# Y/2 * (Dw) ^ 2 + (1-Y)/2 * (max(0, m-Dw) ^ 2)
 
 class SimilarityLoss(nn.Module):
     pass
@@ -44,7 +50,7 @@ class SimilarityLoss(nn.Module):
 
 criterion = SimilarityLoss()
 optimizer = optim.Adam(
-    [model1.parameters(), model2.parameters()], lr=learning_rate)
+    model.parameters(), lr=learning_rate)
 
 
 # Train & validate Network
