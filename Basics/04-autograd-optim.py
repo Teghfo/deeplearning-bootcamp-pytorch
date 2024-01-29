@@ -28,9 +28,9 @@ for i in range(epoch):
         y_pred = model(input_batch, w, b)
         loss = criterion(y_pred, y_true)
 
+        optimizer.zero_grad()
         loss.backward()
         optimizer.step()
-        optimizer.zero_grad()
 
         if i % 10 == 0:
             print(
